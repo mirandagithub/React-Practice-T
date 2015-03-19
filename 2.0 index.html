@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>State</title>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+	<!-- container node -->
+	<div id="app"></div>
+
+    <script type="text/jsx">
+      // Your code here
+      /** @jsx React.DOM */
+
+    var MessageBox = React.createClass({
+		render: function() {
+    		return (
+      			<div className="container jumbotron">
+      				<h2>Hello, World</h2>
+      				<SubMessage />
+      			</div>
+    		);
+ 		}
+	});
+
+	 var SubMessage = React.createClass({
+		render: function() {
+    		return (
+      			<div>
+      				It's good to see you
+      			</div>
+    		);
+ 		}
+	});
+
+	var reactComponent = React.render(
+  		<MessageBox />,
+  		document.getElementById('app'), 
+      function() {
+        console.log("after render");
+      }
+	);
+    </script>
+
+
+</body>
+</html>

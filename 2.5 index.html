@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<title>Props</title>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	
+
+	<script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+</head>
+<body>
+	<!-- container node -->
+	<div id="app"></div>
+
+    <script type="text/jsx">
+      // Your code here
+
+    var MessageBox = React.createClass({ // owner of subMessage
+		handleAdd : function() {
+			//console.log(this);
+			var newMessage = this.refs.newMessage.getDOMNode().value;
+			var newMessages = this.state.messages.concat([newMessage]);
+			this.setState({
+				messages : newMessages
+			});
+		},
+
+
+		getInitialState: function () {
+			return {
+				isVisible : true, // object literal
+				messages : 	[
+								"I like the world",
+								"Coffee flavored ice cream is highly underrated", 
+								"My spoon is too big", 
+								"Winter is coming",
+								"I love a banana"
+							]
+			}
+		},
+
+		render: function() {
+
+			var inlineStyles = {
+				display: this.state.isVisible ? 'block' : 'none'
+			};// object literal
+
+			var messages = this.state.messages.map(function(message){
+					return <SubMessage message={message} />;
+				});
+    		return (
+      			<div className="container jumbotron" style={inlineStyles}>
+      				
+      				<h2>Hello, World</h2>
+      				<input ref="newMessage"type="text" />
+      				<button className="btn btn-primary" onClick={this.handleAdd}>Add</button>
+      				{ messages }
+      			</div>
+    		);
+ 		}
+	});
+
+	 var SubMessage = React.createClass({
+		
+		propTypes: {
+			message: React.PropTypes.string.isRequired
+		},
+
+	 	getDefaultProps: function () {
+	 		return {
+	 			message: 'It\'s good to see you'
+	 		}
+	 	}, 
+
+		render: function() {
+    		return (
+      			<div>
+      				{this.props.message}
+      			</div>
+    		);
+ 		}
+	});
+
+	 //var message = 'Yo!';
+
+	var reactComponent = React.render(
+  		<MessageBox />,
+  		document.getElementById('app')
+	);
+
+	// reactComponent.setState({isVisible: true})
+	// reactComponent.setState({isVisible: true, titleMessage: 'NO'})
+	//reactComponent.forceUpdate()
+    </script>
+
+
+</body>
+</html>

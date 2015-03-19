@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.js"></script>
+	<script src="build/react-with-addons.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+ 	<meta charset="utf-8">
+ 	<title>React Link</title>
+</head>
+
+<body>
+	<div id="app"></div>
+
+	<script type="text/jsx">
+	
+		var App = React.createClass({
+			
+			
+
+			mixins: [React.addons.LinkedStateMixin],
+
+			getInitialState: function() {
+				return {
+					payment: 0,
+					payment2: 0
+				};
+			},
+
+			render: function() { // to update, onChangeHandler (to setState & re-render) for the textbox & its ref, 
+				var total = parseInt(this.state.payment, 10) + parseInt(this.state.payment2, 10);
+				return (
+					<div>
+						<Payment valueLink={this.linkState('payment')} />
+						<Payment valueLink={this.linkState('payment2')} />
+						{total} 
+					</div>
+				);
+			}
+		});	
+
+		var Payment = React.createClass({
+			render: function() {
+				console.log(this.props);
+				return <input type="text" {...this.props} />
+			}
+		})
+
+    React.render(
+      <App />,
+      document.getElementById('app')
+    );
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="build/react-with-addons.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+ 	<meta charset="utf-8">
+ 	<title>React Link</title>
+</head>
+
+<body>
+	<div id="app"></div>
+
+	<script type="text/jsx">
+		
+		var Dashboard = React.createClass({
+
+			loadData: function(){
+
+
+				return	$.get('https://gsr-demo.firebaseio-demo.com/' + this.props.url + '.json');
+			},
+
+			componentWillMount: function(){
+				debugger;
+			},
+
+			componentDidMount: function(){
+				debugger;
+
+
+				this.loadData().then(function(data) {
+					console.log(this);
+					debugger;
+					this.setState({
+						metric: data
+					});
+				}.bind(this));
+			},
+
+			getInitialState: function() {
+				return {
+					metric:0
+				};
+			},
+
+			render: function() {
+				return (
+					<div className="jumbotron">
+						<h2>{this.state.metric}</h2>
+					</div>
+				);
+			}
+
+		});
+	
+	    var dashComponent = React.render(
+	      <Dashboard url="metric" />,
+	      document.getElementById('app')
+	    );
+
+
+	</script>
+</body>
+</html>
